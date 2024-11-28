@@ -4,12 +4,19 @@ on:
     types:
       - opened
   workflow_dispatch:
+  push:
+    branches:
+      - main
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Output event Github
+        run: echo "${{ toJSON(github) }}"
       - name: Output event data
         run: echo "${{ toJSON(github.event) }}"
+      - name: Output event pull request
+        run: echo "${{ toJSON(github.event.pull_request) }}"
       - name: Get code
         uses: actions/checkout@v3
       - name: Install dependencies
